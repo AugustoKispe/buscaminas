@@ -16,49 +16,80 @@ var hizoClick = false;
 //Otras variables
 var casillerosSinDescubrir;
 
+function setup() {
+    createCanvas(500, 500);   //crea un lienzo o panel donde estará el juego. El primer parámetro es el ancho y el segundo el alto del lienzo.
+    laMagiaDeLosProfes();
 
-function setup()
-{
-  createCanvas(500, 500);   //crea un lienzo o panel donde estará el juego. El primer parámetro es el ancho y el segundo el alto del lienzo.
-  laMagiaDeLosProfes();
+    //Asigno colores que se utilizarán. La fn color solo está definida para el setup y el draw
+    COLOR_CASILLERO_CON_MINA = color("#FF0000");
+    COLOR_CASILLERO_SIN_MINA = color("#1CC932");
+    COLOR_CASILLERO_MARCADO = color("#278EF2");
 
-  //Asigno colores que se utilizarán. La fn color solo está definida para el setup y el draw
-  COLOR_CASILLERO_CON_MINA = color("#FF0000");
-  COLOR_CASILLERO_SIN_MINA = color("#1CC932");
-  COLOR_CASILLERO_MARCADO = color("#278EF2");
-
-  // Modificar/completar
+    // Modificar/completar
+    ponerMinasTablero();
+    casillerosSinDescubrir = FILAS * COLUMNAS;
 }
 
 
 function draw() {
-  if (hizoClick == true)
-  {
-    pintarCasillero(columnaPresionada, filaPresionada, COLOR_CASILLERO_SIN_MINA); //pinta el casillero clickeado. Modificar/completar
+    if (hizoClick == true) {
+
+        if (mouseButton == LEFT) {
+            if (tieneMinaCasillero(columnaPresionada, filaPresionada)) {
+                //toca una mina
+                pintarCasillero(columnaPresionada, filaPresionada, COLOR_CASILLERO_CON_MINA);
+                perder();
+
+            }
+            else {
+                //no toca una mina
+                pintarCasillero(columnaPresionada, filaPresionada, COLOR_CASILLERO_SIN_MINA);
+                descubrirCasillero(columnaPresionada, filaPresionada);
+
+            }
+        }
+        else {
+            pintarCasillero(columnaPresionada, filaPresionada, COLOR_CASILLERO_MARCADO);
+        }
+
+        if (casillerosSinDescubrir == CANTIDAD_MINAS) {
+            ganoElJuego();
+        }
+
+        hizoClick = false;  //Indico que ya "procesé" el click del usuario. NO modificar
+    }
+}
 
 
-    
-    hizoClick = false;  //Indico que ya "procesé" el click del usuario. NO modificar
+function ganoElJuego() {
+    console.log("gg");
+    ganar();
+    return true;   //Esto hace que NUNCA gane el juego. Modificar/completar
+}
+
+function ponerMinasTablero() {
+    //ciclo for 20
+    for (let contador = 0; contador < CANTIDAD_MINAS; contador++) {
+        //las instrucciones que ponga acá se repetirán 20 veces
+        numAleatorioFila = floor(random(0, 10)); //del 0 al 9
+        numAleatorioColumna = floor(random(0, 10));
+        ponerMinaCasillero(numAleatorioColumna, numAleatorioFila);
+        console.log(numAleatorioColumna, numAleatorioFila);
+    }
+
+}
+
+function mostrarMinas() {
+    for (var contC = 0; contC < COLUMNAS; contC++) {
+        for (var contF = 0; contF < FILAS; contF++) {
+            if (tieneMinaCasillero(contC, contF)) {
+                pintarCasillero(contC, contF, COLOR_CASILLERO_CON_MINA);
+            }
+        }
+    }
+}
+
+
+function contarMinasAlrededor(columna, fila) {
+    return 9;   
   }
-}
-
-
-function ganoElJuego()
-{
-  return false;   //Esto hace que NUNCA gane el juego. Modificar/completar
-}
-
-function ponerMinasTablero()
-{
-  // Modificar/completar
-}
-
-function mostrarMinas()
-{
-  // Modificar/completar
-}
-
-function contarMinasAlrededor(columna, fila)
-{
-  return 9;   //Esto hace que SIEMPRE cuente 9 minas alrededor. Modificar/completar
-}
