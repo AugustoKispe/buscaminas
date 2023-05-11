@@ -29,7 +29,7 @@ function setup() {
     ponerMinasTablero();
     casillerosSinDescubrir = FILAS * COLUMNAS;
 }
-
+//hola
 
 function draw() {
     if (hizoClick == true) {

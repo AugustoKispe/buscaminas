@@ -152,7 +152,7 @@ Los siguientes procedimientos/funciones de P5 te serán útiles para la resoluci
 
 
 
-3. Verifique el funcionamiento del punto anterior haciendo click en un casillero donde SI haya una mina.
+3. Verifique el funcionamiento del punto anterior, haciendo click en un casillero donde SI haya una mina.
 
     Si todo anduvo bien, al hacer click en un casillero con una mina deberías ver una imagen indicando que perdiste el juego (Game Over).
 
