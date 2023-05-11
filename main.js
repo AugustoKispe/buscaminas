@@ -88,8 +88,20 @@ function mostrarMinas() {
         }
     }
 }
+function contarMinasAlrededor (columnaPresionada, filaPresionada){
+    let cont = 0;
+    
+    for(let i = columnaPresionada-1; i <= columnaPresionada+1; i++){
+        for(let j = filaPresionada-1; j <=filaPresionada+1; j++){
 
+            if(i >= 0 && i < COLUMNAS && j >= 0 && j < FILAS){
 
-function contarMinasAlrededor(columna, fila) {
-    return 9;   
-  }
+                if(tieneMinaCasillero(i, j)){
+                    cont ++;
+                }
+            }
+        }
+    }
+    return cont;
+}
+
